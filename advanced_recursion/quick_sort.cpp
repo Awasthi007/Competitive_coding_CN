@@ -28,3 +28,88 @@ Sample Output 2 :
 1 2 3 5 7 
   
   ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+  
+  #include<bits/stdc++.h>
+using namespace std;
+
+int partition(long long arr[], int si, int ei)
+{
+    long long x = arr[si];
+    int count=0;
+    for(int i=si+1; i<=ei; i++)
+    {
+        if(arr[i] < x)
+            count++;
+    }
+    swap(arr[si],arr[si+count]);
+    
+    int i=si,j=ei;
+    while(i < (si+count) && j > (si+count))
+    {
+        if(arr[i] < x)
+            i++;
+        else if(arr[j] >= x)
+            j--;
+        else
+        {
+            swap(arr[i],arr[j]);
+            i++;j--;
+        }
+    }
+    
+    return si+count;
+}
+
+
+
+void helper(long long arr[], int si, int ei)
+{
+    if(si >= ei)
+        return;
+    
+    int c = partition(arr,si,ei);
+    helper(arr,si,c-1);
+    helper(arr,c+1,ei);
+    
+    return;
+}
+
+
+
+void qs(long long arr[], int n)
+{
+    if(n==0 || n==1)
+        return;
+    
+    helper(arr, 0, n-1);
+}
+
+
+int main()
+{
+    
+    // write your code here
+    int t;
+    cin>>t;
+    
+    while(t--)
+    {
+        int n;
+    	cin>>n;
+    
+    	long long arr[n];
+    	for(int i=0; i<n; i++)
+   	 	{
+        	cin>>arr[i];
+    	}
+    
+    	qs(arr, n);
+    	for(int i=0; i<n; i++)
+    	{
+        	cout<<arr[i]<<" ";
+    	}
+        cout<<endl;
+    }
+    return 0;
+}
