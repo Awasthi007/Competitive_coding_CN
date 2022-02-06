@@ -1,0 +1,26 @@
+/*
+how to update a segment tree
+*/
+
+void updateTree(ll* arr, ll* tree, ll start, ll end, ll index, ll value)
+{
+	if(start == end)
+	{
+		arr[index] = value;
+		tree[treeNode] = value;
+		return;
+	}
+
+	int mid = (start+end)/2;
+	if(index > mid)
+	{
+		updateTree(arr, tree, mid+1, end, index, value);
+	}
+	else
+	{
+		updateTree(arr, tree, start, mid, index, value);
+	}
+
+	tree[treeNode] = tree[2*treeNode] + tree[2*treeNode+1];
+
+}
