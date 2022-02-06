@@ -1,0 +1,21 @@
+/*
+
+Below code shows how to build a segment tree out of an array
+
+*/
+
+void buildTree(ll* arr, ll* tree, ll start, ll end, ll treeNode)
+{
+    if(start == end)
+    {
+        tree[treeNode] = arr[start];
+        return;
+    }
+    
+    int mid = (start+end)/2;
+    
+    buildTree(arr, tree, start, mid, 2*treeNode);
+    buildTree(arr, tree, mid+1, end, 2*treeNode+1);
+    
+    tree[treeNode] = min(tree[2*treeNode],tree[2*treeNode+1]);
+}
